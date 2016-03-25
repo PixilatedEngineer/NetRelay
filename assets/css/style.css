@@ -1,0 +1,36 @@
+.container {
+    padding-bottom: 20px;
+}
+.btn-full-width {
+    width: 100%;
+    margin-top: 5px;
+}
+h4.relays-edit-title {
+    display: inline-block;
+    max-width: 100%;
+    font-weight: 700;
+    font-size: 14px;
+    margin: 0;
+    cursor: default;
+}
+.relays-edit-group label {
+    margin: 0;
+    line-height: 34px;
+}
+.form-inline .checkbox label {
+    margin: 0 5px;
+}
+
+#events.table-hover tbody tr {
+    cursor: pointer;
+}
+
+#board-delete {
+    margin-top: 10px;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    #event-time {
+        width: 93px;
+    }
+}
