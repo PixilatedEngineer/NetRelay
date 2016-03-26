@@ -11,13 +11,13 @@
             </div>
             <div class="form-group">
                 <label for="board-name">Board Name</label>
-                <input required type="text" class="form-control" name="board-name" id="board-name" placeholder="Board Name" value="<?php if(isset($board)) echo $board['name'];?>">
+                <input type="text" class="form-control" name="board-name" id="board-name" placeholder="Board Name" value="<?php if(isset($board)) echo $board['name'];?>">
             </div>
         </div>
         <div class="col-md-6">
             <div class="form-group">
                 <label for="board-location">Board Location</label>
-                <input required type="text" class="form-control" name="board-location" id="board-location" placeholder="Board Location" value="<?php if(isset($board)) echo $board['location'];?>">
+                <input type="text" class="form-control" name="board-location" id="board-location" placeholder="Board Location" value="<?php if(isset($board)) echo $board['location'];?>">
             </div>
             <div class="form-group">
                 <label for="relays-number">Number of relays</label>
