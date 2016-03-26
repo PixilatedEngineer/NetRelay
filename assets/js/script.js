@@ -59,4 +59,15 @@ $(function() {
             .removeAttr('selected');
     });
 
+    $('.relays a').on('click', function(){
+        $.post('/relays/exec', {ip: $(this).data('board-ip'), relay_id: $(this).data('relay-id'), status: $(this).data('status')});
+        if($(this).data('status') == 'on') {
+            $(this).data('status', 'off');
+            $(this).removeClass('btn-primary').addClass('btn-info');
+        } else {
+            $(this).data('status', 'on');
+            $(this).removeClass('btn-info').addClass('btn-primary');
+        }
+    });
+
 });

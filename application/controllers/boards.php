@@ -8,6 +8,7 @@ class Boards extends CI_Controller {
 
         $boards = $this->boards_model->index();
 
+        $data['boards'] = array();
         foreach($boards as $board) {
             $data['boards'][$board['id']] = $board;
             $relays = array();
