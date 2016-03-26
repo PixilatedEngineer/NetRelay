@@ -84,6 +84,7 @@ class Boards extends CI_Controller {
             $relays = $this->input->post('relays');
 
             foreach($relays as $key => $value){
+                if(!$value || empty($value)) $value = 'Relay';
                 $data = array(
                     'relay_id' => $key,
                     'name' => $value,
@@ -113,6 +114,7 @@ class Boards extends CI_Controller {
         $relays = $this->input->post('relays');
 
         foreach($relays as $key => $value){
+            if(!$value || empty($value)) $value = 'Relay';
             $data = array(
                 'relay_id' => $key,
                 'name' => $value,

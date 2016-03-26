@@ -11,7 +11,7 @@
             </div>
             <div class="form-group">
                 <label for="board-name">Board Name</label>
-                <input type="text" class="form-control" name="board-name" id="board-name" placeholder="Board Name" value="<?php if(isset($board)) echo $board['name'];?>">
+                <input required type="text" class="form-control" name="board-name" id="board-name" placeholder="Board Name" value="<?php if(isset($board)) echo $board['name'];?>">
             </div>
         </div>
         <div class="col-md-6">
@@ -47,7 +47,7 @@
                                     #<?php echo isset($relays) ? $relays[$number]['relay_id'] : $number;?>
                                 </label>
                                 <div class="col-xs-10 col-sm-10 col-md-10">
-                                    <input required type="text" class="form-control"
+                                    <input type="text" class="form-control"
                                            name="relays[<?php echo isset($relays) ? $relays[$number]['relay_id'] : $number;?>]"
                                            id="relay-name-<?php echo isset($relays) ? $relays[$number]['relay_id'] : $number;?>"
                                            placeholder="Relay Name"
