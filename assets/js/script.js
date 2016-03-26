@@ -1,7 +1,7 @@
 $(function() {
 
     function get_form_group(number){
-        return '<div class="form-group"><div class="row"><label class="col-xs-2 col-sm-2 col-md-2" for="relay-name-' + number + '">#' + number + '</label><div class="col-xs-10 col-sm-10 col-md-10"><input required type="text" class="form-control" name="relays[' + number + ']" id="relay-name-' + number + '" placeholder="Relay Name"></div></div></div>';
+        return '<div class="form-group"><div class="row"><label class="col-xs-2 col-sm-2 col-md-2" for="relay-name-' + number + '">#' + number + '</label><div class="col-xs-10 col-sm-10 col-md-10"><input type="text" class="form-control" name="relays[' + number + ']" id="relay-name-' + number + '" placeholder="Relay Name"></div></div></div>';
     }
 
     $('#relays-number').on('change', function(){
