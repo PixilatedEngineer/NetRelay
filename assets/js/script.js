@@ -59,7 +59,8 @@ $(function() {
             .removeAttr('selected');
     });
 
-    $('.relays a').on('click', function(){
+    $('.relays a').on('click', function(event){
+        event.preventDefault();
         $.post('/relays/exec', {ip: $(this).data('board-ip'), relay_id: $(this).data('relay-id'), status: $(this).data('status')});
         if($(this).data('status') == 'on') {
             $(this).data('status', 'off');
