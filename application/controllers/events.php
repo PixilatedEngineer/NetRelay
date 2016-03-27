@@ -1,5 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+use php\manager\crontab\CrontabManager;
+
 class Events extends CI_Controller {
 
     public function index($board_id)
@@ -20,7 +22,7 @@ class Events extends CI_Controller {
     public function insert($board_id)
     {
         $this->load->helpers('url');
-        $this->load->model('events_model');
+        $this->load->model(array('events_model', 'relays_model', 'boards_model'));
 
         $days = $this->input->post('days');
         $days_arr = array();
@@ -37,7 +39,15 @@ class Events extends CI_Controller {
             'board_id' => $board_id
         );
 
-        $this->events_model->insert($data);
+        $event_id = $this->events_model->insert($data);
+
+        $board = $this->boards_model->get_board($board_id);
+        $relay = $this->relays_model->get_relay($data['relay_id']);
+
+        if($event_id && $board && $relay) {
+            $time = explode(':', $data['time']);
+            $this->cron_add($time[1] . ' ' . $time[0] . ' * * ' . trim(str_replace('"', '', $data['days']), '[]'), '/usr/bin/python ' . $_SERVER['DOCUMENT_ROOT'] . '/relay.py --ip ' . $board['ip'] . ' --relay ' . $relay['relay_id'] . ' --state ' . $data['state'] . ' --event e' . $event_id . 'e');
+        }
 
         redirect('/events/' . $board_id);
     }
@@ -45,7 +55,7 @@ class Events extends CI_Controller {
     public function update($event_id)
     {
         $this->load->helpers('url');
-        $this->load->model('events_model');
+        $this->load->model(array('events_model', 'relays_model', 'boards_model'));
 
         $board_id = $this->input->post('board-id');
         $days = $this->input->post('days');
@@ -64,6 +74,16 @@ class Events extends CI_Controller {
 
         $this->events_model->update($data, $event_id);
 
+        $board = $this->boards_model->get_board($board_id);
+        $relay = $this->relays_model->get_relay($data['relay_id']);
+
+        if($event_id && $board && $relay) {
+            $this->cron_delete($event_id);
+
+            $time = explode(':', $data['time']);
+            $this->cron_add($time[1] . ' ' . $time[0] . ' * * ' . trim(str_replace('"', '', $data['days']), '[]'), '/usr/bin/python ' . $_SERVER['DOCUMENT_ROOT'] . '/relay.py --ip ' . $board['ip'] . ' --relay ' . $relay['relay_id'] . ' --state ' . $data['state'] . ' --event e' . $event_id . 'e');
+        }
+
         redirect('/events/' . $board_id);
     }
 
@@ -75,6 +95,34 @@ class Events extends CI_Controller {
 
         $this->events_model->delete($event_id);
 
+        $this->cron_delete($event_id);
+
         redirect($this->agent->referrer());
+    }
+
+    protected function cron_add($on, $event, $include = true)
+    {
+        include_once($_SERVER['DOCUMENT_ROOT'] . '/cron-lib/CliTool.php');
+        include_once($_SERVER['DOCUMENT_ROOT'] . '/cron-lib/CronEntry.php');
+        include_once($_SERVER['DOCUMENT_ROOT'] . '/cron-lib/CrontabManager.php');
+        $crontab = new CrontabManager();
+
+        $job = $crontab->newJob();
+        $job->on($on);
+        $job->doJob($event);
+        $crontab->add($job);
+        $crontab->save();
+        var_dump($crontab->listJobs());die();
+    }
+
+    protected function cron_delete($event_id)
+    {
+        include_once($_SERVER['DOCUMENT_ROOT'] . '/cron-lib/CliTool.php');
+        include_once($_SERVER['DOCUMENT_ROOT'] . '/cron-lib/CronEntry.php');
+        include_once($_SERVER['DOCUMENT_ROOT'] . '/cron-lib/CrontabManager.php');
+
+        $crontab = new CrontabManager();
+        $crontab->deleteJob('e' . $event_id . 'e');
+        $crontab->save(false);
     }
 }

@@ -10,6 +10,15 @@ class Relays_model extends CI_Model {
         return $query->result_array();
     }
 
+    public function get_relay($relay_id)
+    {
+        $this->db->limit(1);
+        $this->db->where('id', $relay_id);
+        $query = $this->db->get('relays');
+
+        return $query->row_array();
+    }
+
     public function check_event($relay_id)
     {
         $this->db->where('relay_id', $relay_id);
