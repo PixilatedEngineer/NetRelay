@@ -130,7 +130,14 @@ class Boards extends CI_Controller {
     public function delete($board_id)
     {
         $this->load->helpers('url');
-        $this->load->model('boards_model');
+        $this->load->library('crontab');
+        $this->load->model(array('boards_model', 'events_model'));
+
+        $events = $this->events_model->index($board_id);
+        foreach($events as $event) {
+            $this->events_model->delete($event['id']);
+            $this->crontab->delete($event['id']);
+        }
 
         $this->boards_model->delete($board_id);
 
