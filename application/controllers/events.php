@@ -112,7 +112,6 @@ class Events extends CI_Controller {
         $job->doJob($event);
         $crontab->add($job);
         $crontab->save();
-        var_dump($crontab->listJobs());die();
     }
 
     protected function cron_delete($event_id)
