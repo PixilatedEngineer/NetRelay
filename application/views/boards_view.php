@@ -16,7 +16,7 @@
         <?php foreach($board['relays'] as $relay): ?>
             <div class="col-md-3 col-sm-6 col-xs-12 relays">
                 <a href="#"
-                   class="btn btn-info btn-full-width"
+                   class="btn btn-r-disabled btn-full-width"
                    data-board-ip="<?php echo $board['ip'];?>"
                    data-relay-id="<?php echo $relay['relay_id']; ?>"
                    data-status="off">

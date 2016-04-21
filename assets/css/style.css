@@ -29,6 +29,24 @@ h4.relays-edit-title {
     margin-top: 10px;
 }
 
+.btn-r-disabled {
+    background-color: #C5C5C5;
+    border-color: #A7A7A7;
+    color: #fff;
+}
+.btn-r-disabled:active,
+.btn-r-disabled:hover:active {
+    background-color: #B1B1B1;
+    border-color: #989898;
+    color: #fff;
+}
+.btn-r-disabled:hover,
+.btn-r-disabled:focus {
+    background-color: #ABABAB;
+    border-color: #949494;
+    color: #fff;
+}
+
 @media (min-width: 768px) and (max-width: 991px) {
     #event-time {
         width: 93px;

@@ -61,14 +61,16 @@ $(function() {
 
     $('.relays a').on('click', function(event){
         event.preventDefault();
-        $.post('/relays/exec', {ip: $(this).data('board-ip'), relay_id: $(this).data('relay-id'), status: $(this).data('status')});
-        if($(this).data('status') == 'on') {
-            $(this).data('status', 'off');
-            $(this).removeClass('btn-primary').addClass('btn-info');
-        } else {
-            $(this).data('status', 'on');
-            $(this).removeClass('btn-info').addClass('btn-primary');
-        }
+        var this_btn = $(this);
+        $.post('/relays/exec', {ip: $(this).data('board-ip'), relay_id: $(this).data('relay-id'), status: $(this).data('status')}, function(data) {
+            if(this_btn.data('status') == 'on') {
+                this_btn.data('status', 'off');
+                this_btn.removeClass('btn-primary').addClass('btn-r-disabled');
+            } else {
+                this_btn.data('status', 'on');
+                this_btn.removeClass('btn-r-disabled').addClass('btn-primary');
+            }
+        });
     });
 
 });
