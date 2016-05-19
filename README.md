@@ -1,3 +1,3 @@
 # NetRelay
 
-Pleas see WiKi for documentation
+Pleas see Wiki for documentation
