@@ -12,21 +12,20 @@ For a home automation system you would probably use a Raspberry Pi or other comp
 # Prerequisites
 You need to install the following before you start:
 
-**Debian**—(n/a)  
-**Apache**— ```yum install apache```
-**MySQL**— ```sudo yum install mysql-server```
-**Python**—(already installed in Debian)
-**PHP**—```sudo yum install php php-mysql php-devel php-gd php-pecl-memcache php-pspell php-snmp php-xmlrpc php-xml```
+**Apache**— yum install apache
+**MySQL**— sudo yum install mysql-server
+**Python**—(installed in Debian by default)
+**PHP**—sudo yum install php php-mysql php-devel php-gd php-pecl-memcache php-pspell php-snmp php-xmlrpc php-xml
 
 # Installation Overview
-You can use root to install everything, as it keeps you from having to worry about of fix Apache folder permissions issues. If you want to install RelayControl as another user then you will have to set folder and user permissions issues for that yourself as we do not explain those here.
+You can use root to install NetRelay, as it keeps you from having to worry about or fix Apache folder permissions issues. If you want to install RelayControl as another user then you will have to set folder and user permissions issues for that yourself as we do not explain those here.
 
 1. Clone Git repository.
 2. Copy that to Apache document root.
-3. Install MySQL server, change root password.
-4. Create RelayControl Database.
-5. Create Replay Control Tables.
-6. Open Application index.php page and verify it works.
+3. Install MySQL server. Change MySQL root password.
+4. Create RelayControl database.
+5. Populate ReplayControl tables.
+6. Open Application index.php page and verify that it works.
 
 
 # Clone Git Repository
@@ -36,7 +35,7 @@ This copies the source code to your computer:
 
 
 # Configure Database.php
-The database config file is NetRelay/application/config/database.php.  You do not need to change the database configuration except to change the root password here to match the MySQL root that you set.  When you first install MySQL it has no password.  Below we show how to set it.
+The database config file is NetRelay/application/config/database.php.  You do not need to change the database configuration except to change the root password to match the MySQL root that you set
 
 ```cat application/config/database.php``` 
 
@@ -45,21 +44,21 @@ The database config file is NetRelay/application/config/database.php.  You do no
 
 ## Create RelayControl Database
 
-mysql> connect relaycontrol
-create database relaycontrol;
+```mysql> connect relaycontrol;```
+```mysql> create database relaycontrol;```
 
 ## Run script to populate tables
 
 This is in the NetRelay/sql folder
 
-```source relaycontrol.sql
+```mysql>  source relaycontrol.sql```
 
 ## Restart MySQL
 
 sudo /etc/init.d/mysqld restart
 
 #Configure config.php
-There is only one thing you need to change in NetRelay/application/config/config.php, the IP address of your server. Put the IP address that you can get to from a web browser, e.g., one that is routable from the internet.
+There is only one thing you need to change in NetRelay/application/config/config.php: the IP address of your server.  
 
 ```vi config.php```
 
@@ -67,11 +66,11 @@ Change this:
 
 ```$config['base_url'] = 'http://(IP address)/';```
 
-"Copy the Application to Apache Document Root 
+##Copy the Application to Apache Document Root 
 
 Copy NetRelay to /var/www/html.  That is the default folder where the Apache web server looks for documents.  So that if you type, for example: http://localhost it will look there.
 
-"" restart Apache 
+## Restart Apache 
 
 ```/etc/init.d/httpd restart```
 
