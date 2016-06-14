@@ -80,12 +80,12 @@ Copy NetRelay to /var/www/html.  That is the default folder where the Apache web
 
 Set AllowOverride All in http.conf in two places as shown below.  The second is required because we are using .htaccess, which lets a program override directory and file access give in the httpd.conf file.   
 
-**First place:**
+First place:
 <Directory "/">
   AllowOverride All
 </Directory>
 
-**Second place:**
+Second place:
 #
 # AllowOverride controls what directives may be placed in .htaccess files.
 # It can be "All", "None", or any combination of the keywords:
