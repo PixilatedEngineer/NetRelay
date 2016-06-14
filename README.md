@@ -83,7 +83,7 @@ Set AllowOverride All in http.conf in two places as shown below.  The second is 
 **First place:**
 ```<Directory "/">
   AllowOverride All
-</Directory>
+</Directory>```
 
 **Second place:**
 ```#
