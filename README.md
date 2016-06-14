@@ -70,18 +70,36 @@ Change this:
 
 Copy NetRelay to /var/www/html.  That is the default folder where the Apache web server looks for documents.  So that if you type, for example: http://localhost it will look there.
 
+##
+
 ## Restart Apache 
 
 ```/etc/init.d/httpd restart```
 
+## Configure Apache Access
+
+Set AllowOverride All in http.conf in two places as shown below.  The second is required because we are using .htaccess, which lets a program override directory and file access give in the httpd.conf file.   
+
+**First place:**
+```<Directory "/">
+  AllowOverride All
+</Directory>
+
+**Second place:**
+```#
+# AllowOverride controls what directives may be placed in .htaccess files.
+# It can be "All", "None", or any combination of the keywords:
+#   Options FileInfo AuthConfig Limit
+#
+    AllowOverride All```
 
 
-# Open App
+
+## Open App
 
 http://localhost/NetRelay/
 
-Screen should look [like this]https://github.com/werowe/NetRelay/commit/3f8a4c35e4a83e45e51c65850d27e69f0d4cba4f
-
+ 
 
 
 
